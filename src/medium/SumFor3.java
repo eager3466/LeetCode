@@ -103,4 +103,73 @@ public class SumFor3 {
      * 边界条件和剪枝自己做的也还可以，但毕竟选错了思路，就无法pass最后一个考验时间的case。
      */
 
+//    public List<List<Integer>> threeSum(int[] num) {
+//        Arrays.sort(num);
+//        List<List<Integer>> res = new LinkedList<>();
+//        for (int i = 0; i < num.length-2; i++) {
+//            if (i == 0 || (i > 0 && num[i] != num[i-1])) {
+//                if(nums[i]>0) break;
+//                int lo = i+1, hi = num.length-1, sum = 0 - num[i];
+//                while (lo < hi) {
+//                    if (num[lo] + num[hi] == sum) {
+//                        res.add(Arrays.asList(num[i], num[lo], num[hi]));
+//                        while (lo < hi && num[lo] == num[lo+1]) lo++;
+//                        while (lo < hi && num[hi] == num[hi-1]) hi--;
+//                        lo++; hi--;
+//                    } else if (num[lo] + num[hi] < sum) {
+//                        // improve: skip duplicates
+//                        while (lo < hi && num[lo] == num[lo+1]) lo++;
+//                        lo++;
+//                    } else {
+//                        // improve: skip duplicates
+//                        while (lo < hi && num[hi] == num[hi-1]) hi--;
+//                        hi--;
+//                    }
+//                }
+//            }
+//        }
+//        return res;
+//    }
+
+    public List<List<Integer>> threeSumFinal(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 3)
+            return res;
+        int i=0, j=nums.length-1;
+        Arrays.sort(nums);
+        if (nums[i] > 0 || nums[j] < 0)
+            return res;
+        // All elements are 0
+        if (nums[i] == nums[j]) {
+            res.add(Arrays.asList(0, 0, 0));
+            return res;
+        }
+
+        for(i=0; i < nums.length-2; ) {
+            if(nums[i] > 0) break;
+            int low = i+1;
+            int high = nums.length-1;
+            int sum = 0-nums[i];
+            while(low < high) {
+                if(nums[low] + nums[high] == sum) {
+                    res.add(Arrays.asList(nums[i], nums[low], nums[high]));
+                    while(low<high && nums[low+1]==nums[low]) low++;
+                    low++;
+                    while(high > low && nums[high-1] == nums[high]) high--;
+                    high--;
+                } else {
+                    if(nums[low] + nums[high] < sum) {
+                        while(low<high && nums[low+1]==nums[low]) low++;
+                        low++;
+                    } else {
+                        while(high > low && nums[high-1] == nums[high]) high--;
+                        high--;
+                    }
+                }
+            }
+            while(i<nums.length-3 && nums[i+1]==nums[i]) i++;
+            i++;
+        }
+        return res;
+    }
 }
