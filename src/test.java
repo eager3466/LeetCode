@@ -32,7 +32,7 @@ public class test {
 //                new FirstMissingPositive().firstMissingPositive(new int[]{2,1})
 //                new WildcardMatching().isMatch("aa", "*")
 //                new Permutations().permute(new int[] {1,2,3})
-
+                new NQueens().solveNQueens(8)
         );
     }
 
