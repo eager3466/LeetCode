@@ -1,5 +1,9 @@
 package medium;
 
+import com.sun.corba.se.spi.ior.iiop.IIOPFactories;
+
+import javax.management.openmbean.TabularType;
+
 /**
  * Created by Eager-RESCUER on 2017/8/7
  */
@@ -22,39 +26,39 @@ public class SearchInRotatedSortedArrayII {
             return false;
         int low = 0;
         int high = nums.length - 1;
-        int med = 0;
-        while (low < high) {
-            med = (high + low) / 2;
-            if (nums[med] == target)
+        int mid = -1;
+        while (low <= high) {
+            mid = (low + high) / 2;
+            if (nums[mid] == target)
                 return true;
-            if (nums[med] > nums[high]) {
-                low = med + 1;
+            // left is sorted
+            if (nums[mid] > nums[low] || nums[mid] > nums[high]) {
+                if (target < nums[mid] && target >= nums[low]) {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
+                }
+            } else if (nums[mid] < nums[high] || nums[mid] < nums[low]) {
+                if (target <= nums[high] && target > nums[mid]) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
             } else {
-                high = med;
+                high--;
             }
         }
-        int rot = low;
-        if (target == nums[nums.length - 1])
-            return true;
-        if (target < nums[nums.length-1]) {
-            low = rot;
-            high = nums.length - 1;
-        } else {
-            low = 0;
-            high = rot;
-        }
-        while (low < high) {
-            med = (low +  high) / 2;
-            if (nums[med] == target)
-                return true;
-            if (nums[med] > target) {
-                high = med;
-            } else {
-                low = med + 1;
-            }
-        }
-        return nums[low] == target;
+        return false;
     }
+
+    /**
+     * 在有重复元素的情况下，这个2题就比1题多出来了一些额外的判断
+     *
+     * 因为nums[low]和nums[high]可能相等
+     * 所以判断的时候要用(nums[mid] > nums[low] || nums[mid] > nums[high])
+     *
+     * 除此之外，如果都相等，存在重复元素，则令high--以消除重复
+     */
 
 //    public boolean search(int[] nums, int target) {
 //        int start = 0, end = nums.length - 1, mid = -1;

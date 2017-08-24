@@ -41,6 +41,15 @@ public class PalindromePartitioningII {
         return dp[n-1];
     }
 
+    /**
+     * 用一个O(n^2)的boolean数组来记录哪一块是回文的
+     *
+     * 因为是从里往外计算的，所以第一次判断s.charAt(i) == s.charAt(j)时即可认为是回文
+     * 而之后判断回文可以通过isPalin[i-1][j+1])（前提是坐标得合法不越界）
+     *
+     * 给每一段回文赋初值，最多被分割成n个（每个字母都是独立的一段）
+     */
+
 //    public int minCut(String s) {
 //        char[] c = s.toCharArray();
 //        int n = c.length;
@@ -59,6 +68,19 @@ public class PalindromePartitioningII {
 //        }
 //        return cut[n - 1];
 //    }
+
+    /**
+     * Update by Eager-MBP in 2017/8/13
+     * 这个题的Discuss里网友只用了O(n)的精彩答案，想了非常久
+     *
+     * 它的精髓之处在于两个for循环的循环条件
+     * 事实上它一直都在求cut[i+j+1]，而且不达成那么长的条件，j是不会进行j++运算的
+     *
+     * 而回文有两种，一种是对于当前的i为中心的回文，另一种是以i和i+1一起的偶数回文
+     * 作者活用了这个方法，并给数组赋值了合适的初值（n-1)
+     *
+     * 赞美之心！
+     */
 
 //    class Solution {
 //        public:
