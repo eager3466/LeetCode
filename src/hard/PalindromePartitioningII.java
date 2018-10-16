@@ -79,7 +79,7 @@ public class PalindromePartitioningII {
      * 而回文有两种，一种是对于当前的i为中心的回文，另一种是以i和i+1一起的偶数回文
      * 作者活用了这个方法，并给数组赋值了合适的初值（n-1)
      *
-     * 赞美之心！
+     * 赞美の心！
      */
 
 //    class Solution {

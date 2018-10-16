@@ -1,5 +1,7 @@
 package easy;
 
+import java.util.PriorityQueue;
+
 /**
  * Created by eager-mbp on 2017/7/11.
  */
@@ -63,6 +65,8 @@ public class ImplementOfstrStr {
                 j = next[j];
             }
         }
+        PriorityQueue<Integer> s = new PriorityQueue<>();
+
         return next;
     }
 
